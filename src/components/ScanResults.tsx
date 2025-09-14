@@ -1,8 +1,12 @@
 import { BotIcon } from 'lucide-react'
 import Image from 'next/image'
 import react from 'react'
-
-const ScanResults: react.FC<any> = (props) => {
+import { RoboFlowResponse } from '../utils/types'
+type ScanResultsProps = {
+    response: RoboFlowResponse
+    image: string
+}
+const ScanResults: react.FC<ScanResultsProps> = (props) => {
 
     return (
         <>
@@ -13,6 +17,7 @@ const ScanResults: react.FC<any> = (props) => {
                     {/* Left Section: Analytics */}
                     <div className="lg:col-span-2 space-y-6 border p-3 border-gray-200/25 rounded-lg bg-base-300">
                         <h2 className="text-xl font-semibold">AI-Powered Osteoporosis Analytics</h2>
+                        <h2 className="text-xl font-semibold">{props.response.predictions[0].class}</h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <Card title="Bone Density Score (BMD)" value="-2.1" description="Osteopenia Range" />
@@ -56,10 +61,10 @@ const ScanResults: react.FC<any> = (props) => {
                         </div>
                     </div>
 
-                    <div className="lg:col-span-2 space-y-6 border p-3 border-gray-200/25 rounded-lg bg-base-300">
+                    {props.image && <div className="lg:col-span-2 space-y-6 border p-3 border-gray-200/25 rounded-lg bg-base-300">
                         <h2 className="text-xl font-semibold">Scan Analysis</h2>
-                        <Image alt='scan image' src="/scan.png" width={500} height={500} />
-                    </div>
+                        <img alt='scan image' src={props.image} width={500} height={500} />
+                    </div>}
                 </div>
             </div>
         </>

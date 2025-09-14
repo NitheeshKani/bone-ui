@@ -19,22 +19,22 @@ export default function Menubar() {
                     </Link>
                 </li>
                 <li>
-                    <Link href="/u" className="tooltip" data-tip="Home">
+                    <Link href="/" className="tooltip" data-tip="Home">
                         <HouseIcon size={20} />
                     </Link>
                 </li>
                 <li>
-                    <Link href="/u/dexa" className="tooltip" data-tip="Dexa">
+                    <Link href="/dexa" className="tooltip" data-tip="Dexa">
                         <FileScanIcon size={20} />
                     </Link>
                 </li>
                 <li>
-                    <Link href="/u/xray" className="tooltip" data-tip="X-Ray">
+                    <Link href="/xray" className="tooltip" data-tip="X-Ray">
                         <BoneIcon size={20} />
                     </Link>
                 </li>
                 <li>
-                    <Link href="/u/details" className="tooltip" data-tip="Details">
+                    <Link href="/details" className="tooltip" data-tip="Details">
                         <ChartPieIcon size={20} />
                     </Link>
                 </li>
