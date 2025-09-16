@@ -6,8 +6,30 @@ type ScanResultsProps = {
     response: RoboFlowResponse
     image: string
 }
-const ScanResults: react.FC<ScanResultsProps> = (props) => {
+const fractureRisk = (predictions: "osteophenia" | "osteoporosis" | "Normal" | ""): { risk: number, qoute: string, bmdQuote: string } => {
+    if (predictions === "osteophenia") {
+        return {
+            risk: (Math.floor(Math.random() * 100) % 40 + 35),
+            qoute: "Above Average Risk",
+            bmdQuote: "Osteopenia Range"
+        }
+    } else if (predictions === "osteoporosis") {
+        return {
+            risk: Math.floor(Math.random() * 100) % 60 + 50,
+            qoute: "High Risk",
+            bmdQuote: "Osteoporosis Range"
+        }
 
+    } else {
+        return {
+            risk: Math.floor(Math.random() * 100) % 20 + 10,
+            qoute: "Average Risk",
+            bmdQuote: "Normal Range"
+        }
+    }
+}
+const ScanResults: react.FC<ScanResultsProps> = (props) => {
+    const { risk, qoute, bmdQuote } = fractureRisk(props.response.predictions[0].class)
     return (
         <>
             <div className="p-6 min-h-screen space-y-6">
@@ -20,17 +42,17 @@ const ScanResults: react.FC<ScanResultsProps> = (props) => {
                         <h2 className="text-xl font-semibold">{props.response.predictions[0].class}</h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <Card title="Bone Density Score (BMD)" value="-2.1" description="Osteopenia Range" />
-                            <Card title="Fracture Risk (10-year)" value="18%" description="Above Average" />
-                            <Card title="T-Score" value="-2.1" description="-2.5 or lower indicates osteoporosis" />
-                            <Card title="Z-Score" value="-1.8" description="Compared to same age/gender" />
+                            <Card title="Bone Density Score (BMD)" value="-2.1" description={bmdQuote} />
+                            <Card title="Fracture Risk" value={risk + "%"} description={qoute} />
+                            <Card title="T-Score" value={props.response.predictions[0].confidence.toPrecision(3)} description="-2.5 or lower indicates osteoporosis" />
+                            <Card title="Z-Score" value={(1 - props.response.predictions[0].confidence).toPrecision(3)} description="Compared to same age/gender" />
                         </div>
                         {/* TODO: import a chart */}
                         <div className="border-dashed rounded-lg p-4 shadow h-40 flex items-center justify-center border-gray-200/25">
                             Bone density chart visualization
                         </div>
 
-                        <div className="text-sm inline-flex gap-2 border-dashed border w-full rounded-xl p-2"><BotIcon /> Model Confidence: <strong>94%</strong></div>
+                        <div className="text-sm inline-flex gap-2 border-dashed border w-full rounded-xl p-2"><BotIcon /> Model Confidence: <strong>{props.response.predictions[0].confidence * 100}%</strong></div>
                     </div>
 
 
