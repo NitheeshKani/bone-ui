@@ -2,6 +2,8 @@ import { BotIcon } from 'lucide-react'
 import Image from 'next/image'
 import react from 'react'
 import { RoboFlowResponse } from '../utils/types'
+import { Chart } from 'chart.js'
+import TScoreChart from './TScoreChart'
 type ScanResultsProps = {
     response: RoboFlowResponse
     image: string
@@ -44,12 +46,12 @@ const ScanResults: react.FC<ScanResultsProps> = (props) => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <Card title="Bone Density Score (BMD)" value="-2.1" description={bmdQuote} />
                             <Card title="Fracture Risk" value={risk + "%"} description={qoute} />
-                            <Card title="T-Score" value={props.response.predictions[0].confidence.toPrecision(3)} description="-2.5 or lower indicates osteoporosis" />
+                            <Card title="T-Score" value={props.response.predictions[0].confidence.toPrecision(3)} description={"indicates " + props.response.predictions[0].class} />
                             <Card title="Z-Score" value={(1 - props.response.predictions[0].confidence).toPrecision(3)} description="Compared to same age/gender" />
                         </div>
                         {/* TODO: import a chart */}
-                        <div className="border-dashed rounded-lg p-4 shadow h-40 flex items-center justify-center border-gray-200/25">
-                            Bone density chart visualization
+                        <div className="border-dashed rounded-lg p-4 shadow h-50 sm:h-100 flex items-center justify-center border-gray-200/25">
+                            <TScoreChart />
                         </div>
 
                         <div className="text-sm inline-flex gap-2 border-dashed border w-full rounded-xl p-2"><BotIcon /> Model Confidence: <strong>{props.response.predictions[0].confidence * 100}%</strong></div>
