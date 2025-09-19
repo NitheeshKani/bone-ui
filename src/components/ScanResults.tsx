@@ -1,8 +1,6 @@
 import { BotIcon } from 'lucide-react'
-import Image from 'next/image'
 import react from 'react'
 import { RoboFlowResponse } from '../utils/types'
-import { Chart } from 'chart.js'
 import TScoreChart from './TScoreChart'
 type ScanResultsProps = {
     response: RoboFlowResponse

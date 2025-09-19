@@ -7,7 +7,7 @@ export default function Menubar() {
         <>
             <ul className="menu menu-horizontal bg-base-200 rounded-box mt-6">
                 <li>
-                    <Link href="/u">
+                    <Link href="/">
                         <Image
                             className="dark:invert"
                             src="/next.svg"
