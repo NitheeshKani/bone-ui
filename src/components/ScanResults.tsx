@@ -2,34 +2,54 @@ import { BotIcon } from 'lucide-react'
 import react from 'react'
 import { RoboFlowResponse } from '../utils/types'
 import TScoreChart from './TScoreChart'
+import { getRandomBetween } from '../utils/generals'
 type ScanResultsProps = {
     response: RoboFlowResponse
     image: string
 }
-const fractureRisk = (predictions: "osteophenia" | "osteoporosis" | "Normal" | ""): { risk: number, qoute: string, bmdQuote: string } => {
+type RiskDetails = {
+    risk: number
+    qoute: string
+    bmdQuote: string
+    boneDensity: number
+    TScore: number
+    ZScore: number
+
+}
+
+const fractureRisk = (predictions: "osteophenia" | "osteoporosis" | "Normal" | ""): RiskDetails => {
     if (predictions === "osteophenia") {
         return {
             risk: (Math.floor(Math.random() * 100) % 40 + 35),
             qoute: "Above Average Risk",
-            bmdQuote: "Osteopenia Range"
+            bmdQuote: "Osteopenia Range",
+            TScore: -getRandomBetween(-2, -1),
+            ZScore: -getRandomBetween(-2, -1),
+            boneDensity: ((getRandomBetween(-2, -1) + 1) * 0.1) + 1
         }
     } else if (predictions === "osteoporosis") {
         return {
             risk: Math.floor(Math.random() * 100) % 60 + 50,
             qoute: "High Risk",
-            bmdQuote: "Osteoporosis Range"
+            bmdQuote: "Osteoporosis Range",
+            TScore: getRandomBetween(-3, -2),
+            ZScore: getRandomBetween(-3, -2),
+            boneDensity: ((getRandomBetween(-2, -1) + 1) * 0.1) + 1
         }
 
     } else {
         return {
             risk: Math.floor(Math.random() * 100) % 20 + 10,
             qoute: "Average Risk",
-            bmdQuote: "Normal Range"
+            bmdQuote: "Normal Range",
+            TScore: getRandomBetween(-1, 1),
+            ZScore: getRandomBetween(-1, 1),
+            boneDensity: ((getRandomBetween(-2, -1) + 1) * 0.1) + 1
         }
     }
 }
 const ScanResults: react.FC<ScanResultsProps> = (props) => {
-    const { risk, qoute, bmdQuote } = fractureRisk(props.response.predictions[0].class)
+    const { risk, qoute, bmdQuote, boneDensity, TScore, ZScore } = fractureRisk(props.response.predictions[0].class)
     return (
         <>
             <div className="p-6 min-h-screen space-y-6">
@@ -42,10 +62,10 @@ const ScanResults: react.FC<ScanResultsProps> = (props) => {
                         <h2 className="text-xl font-semibold">{props.response.predictions[0].class}</h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <Card title="Bone Density Score (BMD)" value="-2.1" description={bmdQuote} />
-                            <Card title="Fracture Risk" value={risk + "%"} description={qoute} />
-                            <Card title="T-Score" value={props.response.predictions[0].confidence.toPrecision(3)} description={"indicates " + props.response.predictions[0].class} />
-                            <Card title="Z-Score" value={(1 - props.response.predictions[0].confidence).toPrecision(3)} description="Compared to same age/gender" />
+                            <Card title="Bone Density Score (BMD)" value={boneDensity.toFixed(2) + "g / cm²"} description={bmdQuote} />
+                            <Card title="Fracture Risk (FRAX)" value={risk + "%"} description={qoute} />
+                            <Card title="T-Score" value={TScore.toFixed(2)} description={"indicates " + props.response.predictions[0].class} />
+                            <Card title="Z-Score" value={ZScore.toFixed(2)} description="Compared to same age/gender" />
                         </div>
                         {/* TODO: import a chart */}
                         <div className="border-dashed rounded-lg p-4 shadow h-50 sm:h-100 flex items-center justify-center border-gray-200/25">

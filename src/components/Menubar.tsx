@@ -16,6 +16,7 @@ export default function Menubar() {
                             height={20}
                             priority
                         />
+                        {/* <p className="nabla-font text-l">Osteo Vision</p> */}
                     </Link>
                 </li>
                 <li>

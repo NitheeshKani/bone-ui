@@ -95,12 +95,17 @@ export default function TScoreChart() {
             },
             title: {
                 display: true,
-                text: "T-scores in Spine",
+                text: "T-scores of your Bone",
                 color: "#e0e0e0",
                 font: {
                     size: 18,
                     style: "italic",
                 },
+            },
+            subtitle: {
+                display: true,
+                text: "Based on age and sex",
+                color: "#e0e0e0"
             },
         },
         scales: {

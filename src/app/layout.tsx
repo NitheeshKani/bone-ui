@@ -15,6 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+
       <body>
         <div className='flex flex-col items-center'>
           <Menubar />
