@@ -1,4 +1,4 @@
-"use client"
+"use client"   
 import FileInput from '@/src/components/FileInput'
 import FileLoader from '@/src/components/FileLoader'
 import ScanResults from '@/src/components/ScanResults'

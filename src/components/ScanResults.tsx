@@ -25,7 +25,8 @@ const fractureRisk = (predictions: "osteophenia" | "osteoporosis" | "Normal" | "
             bmdQuote: "Osteopenia Range",
             TScore: -getRandomBetween(-2, -1),
             ZScore: -getRandomBetween(-2, -1),
-            boneDensity: ((getRandomBetween(-2, -1) + 1) * 0.1) + 1
+            boneDensity: (
+                (getRandomBetween(-2, -1) + 1) * 0.1) + 1
         }
     } else if (predictions === "osteoporosis") {
         return {
