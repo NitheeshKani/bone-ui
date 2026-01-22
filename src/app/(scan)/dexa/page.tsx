@@ -1,4 +1,4 @@
-"use client"   
+"use client"
 import FileInput from '@/src/components/FileInput'
 import FileLoader from '@/src/components/FileLoader'
 import ScanResults from '@/src/components/ScanResults'
@@ -6,7 +6,6 @@ import { RoboFlowResponse } from '@/src/utils/types'
 import react, { useState } from 'react'
 
 const DexaPage: react.FC<any> = (props) => {
-
 
     const [preview, setPreview] = useState<string | null>(null)
     const [response, setResponse] = useState<RoboFlowResponse>()
