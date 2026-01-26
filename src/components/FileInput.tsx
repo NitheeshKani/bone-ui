@@ -106,10 +106,10 @@ const FileInput: React.FC<FileInputProp> = (props) => {
             </div>
             {preview && (
                 <div className="flex flex-wrap align-center flex-row gap-5 p-10 justify-center">
-                    <img src={preview} alt="Preview" />
-                    {denoise ? <img src={denoise} alt="denoised" /> : null}
-                    {contrast ? <img src={contrast} alt="contrast" /> : null}
-                    {sharp ? <img src={sharp} alt="sharp" /> : null}
+                    <img className="h-60" src={preview} alt="Preview" />
+                    {denoise ? <img className="h-60" src={denoise} alt="denoised" /> : null}
+                    {contrast ? <img className="h-60" src={contrast} alt="contrast" /> : null}
+                    {sharp ? <img className="h-60" src={sharp} alt="sharp" /> : null}
                 </div>
             )}
         </>

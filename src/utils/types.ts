@@ -8,3 +8,8 @@ type Prediction = {
     class_id: number,
     confidence: number
 }
+
+export type DoctorQuote = {
+    quote: string
+    tags: string[]
+}

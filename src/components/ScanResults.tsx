@@ -1,8 +1,10 @@
 import { BotIcon } from 'lucide-react'
 import react from 'react'
-import { RoboFlowResponse } from '../utils/types'
+import { DoctorQuote, RoboFlowResponse } from '../utils/types'
 import TScoreChart from './TScoreChart'
 import { getRandomBetween } from '../utils/generals'
+import { doctorQuotesNormal, doctorQuotesOsteopenia, doctorQuotesOsteoporosis } from '../utils/reportData'
+import Typer from './Typer'
 type ScanResultsProps = {
     response: RoboFlowResponse
     image: string
@@ -14,7 +16,7 @@ type RiskDetails = {
     boneDensity: number
     TScore: number
     ZScore: number
-
+    doctorQuote: DoctorQuote
 }
 
 const fractureRisk = (predictions: "osteophenia" | "osteoporosis" | "Normal" | ""): RiskDetails => {
@@ -26,7 +28,8 @@ const fractureRisk = (predictions: "osteophenia" | "osteoporosis" | "Normal" | "
             TScore: -getRandomBetween(-2, -1),
             ZScore: -getRandomBetween(-2, -1),
             boneDensity: (
-                (getRandomBetween(-2, -1) + 1) * 0.1) + 1
+                (getRandomBetween(-2, -1) + 1) * 0.1) + 1,
+            doctorQuote: doctorQuotesOsteopenia[Math.floor(getRandomBetween(0, doctorQuotesOsteopenia.length - 1))]
         }
     } else if (predictions === "osteoporosis") {
         return {
@@ -35,7 +38,8 @@ const fractureRisk = (predictions: "osteophenia" | "osteoporosis" | "Normal" | "
             bmdQuote: "Osteoporosis Range",
             TScore: getRandomBetween(-3, -2),
             ZScore: getRandomBetween(-3, -2),
-            boneDensity: ((getRandomBetween(-2, -1) + 1) * 0.1) + 1
+            boneDensity: ((getRandomBetween(-2, -1) + 1) * 0.1) + 1,
+            doctorQuote: doctorQuotesOsteoporosis[Math.floor(getRandomBetween(0, doctorQuotesOsteoporosis.length - 1))]
         }
 
     } else {
@@ -45,12 +49,13 @@ const fractureRisk = (predictions: "osteophenia" | "osteoporosis" | "Normal" | "
             bmdQuote: "Normal Range",
             TScore: getRandomBetween(-1, 1),
             ZScore: getRandomBetween(-1, 1),
-            boneDensity: ((getRandomBetween(-2, -1) + 1) * 0.1) + 1
+            boneDensity: ((getRandomBetween(-2, -1) + 1) * 0.1) + 1,
+            doctorQuote: doctorQuotesNormal[Math.floor(getRandomBetween(0, doctorQuotesNormal.length - 1))]
         }
     }
 }
 const ScanResults: react.FC<ScanResultsProps> = (props) => {
-    const { risk, qoute, bmdQuote, boneDensity, TScore, ZScore } = fractureRisk(props.response.predictions[0].class)
+    const { risk, qoute, bmdQuote, boneDensity, TScore, ZScore, doctorQuote } = fractureRisk(props.response.predictions[0].class)
     return (
         <>
             <div className="p-6 min-h-screen space-y-6">
@@ -81,11 +86,12 @@ const ScanResults: react.FC<ScanResultsProps> = (props) => {
                     <div className="space-y-6">
                         <div className="bg-base-200 border-dashed border rounded-lg p-4 shadow space-y-2 border-gray-200/25">
                             <h3 className="font-semibold text-lg">Interpretation</h3>
-                            <div className="text-warning text-sm">⚠ Your results show signs of moderate osteopenia in the lumbar region. Further clinical assessment is advised.</div>
+                            <Typer text={doctorQuote.quote} speed={100} />
+                            {props.response.predictions[0].class !== "Normal" && <div className="text-warning text-sm">⚠ Your results show signs of moderate {props.response.predictions[0].class}. Further clinical assessment is advised.</div>}
                             <div className="space-y-2 mt-2">
-                                <button className="badge badge-primary m-2">Consult Orthopedic</button>
-                                <button className="badge badge-primary m-2">Schedule Repeat DEXA</button>
-                                <button className="badge badge-primary m-2">Consider Calcium + D</button>
+                                {doctorQuote.tags.map((tag, index) => (
+                                    <p className="badge badge-primary m-2" key={index}>{tag}</p>
+                                ))}
                             </div>
                         </div>
 

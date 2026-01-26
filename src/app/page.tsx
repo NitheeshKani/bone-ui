@@ -235,7 +235,7 @@ const HomePage: react.FC<any> = (props) => {
           </div>
           <div className="flex flex-wrap justify-center gap-16">
             {[
-              { name: "Nitheesh Kani K", role: "UI/UX Developer", initial: "NK" },
+              { name: "Nitheesh Kani", role: "UI/UX Developer", initial: "NK" },
               { name: "Shri Abirami", role: "UI/UX Developer", initial: "SA" },
               { name: "Janani Shree", role: "Deep Learning Engineer", initial: "JS" },
               { name: "Akash", role: "Data Scientist", initial: "M" },
