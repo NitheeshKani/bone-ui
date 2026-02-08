@@ -7,16 +7,17 @@ export default function Menubar() {
         <>
             <ul className="menu menu-horizontal bg-base-200 rounded-box mt-6">
                 <li>
-                    <Link href="/">
-                        <Image
+                    <Link href="/" className="bg-primary rounded-box">
+                        {/* <Image
                             className="dark:invert"
                             src="/next.svg"
                             alt="Next.js logo"
                             width={100}
                             height={20}
                             priority
-                        />
-                        {/* <p className="nabla-font text-l">Osteo Vision</p> */}
+                        /> */}
+                        <Activity />
+                        <p className=" text-l">OsteoVision</p>
                     </Link>
                 </li>
                 <li>
@@ -44,3 +45,6 @@ export default function Menubar() {
     )
 }
 
+const Activity = ({ size = 24 }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>
+)
