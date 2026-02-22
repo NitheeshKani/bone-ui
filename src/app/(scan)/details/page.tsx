@@ -12,10 +12,10 @@ const DetailsPage: react.FC<any> = (props) => {
     return (
         <><div className='flex items-center justify-center flex-wrap'>
 
-            <ConfusionMatrix matrix={[[1, 5, 6], [1, 5, 6], [1, 5, 6]]} />
-            <BoxOverlapChart />
-            <TrainingLoss />
+            <ConfusionMatrix />
             <ValidationChart />
+            <TrainingLoss />
+            <BoxOverlapChart />
         </div>
         </>
     )
