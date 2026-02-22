@@ -23,7 +23,7 @@ ChartJS.register(
     Legend
 )
 
-const BoxOverlapChart = () => {
+const ValidationChart = () => {
     const options: ChartOptions<'line'> = {
         responsive: true,
         maintainAspectRatio: false,
@@ -39,7 +39,7 @@ const BoxOverlapChart = () => {
             },
             title: {
                 display: true,
-                text: 'Box Overlap Loss',
+                text: 'Validation Accuracy',
                 align: 'start',
                 font: { size: 20, weight: 'bold' },
             },
@@ -50,8 +50,8 @@ const BoxOverlapChart = () => {
                 grid: { display: false },
             },
             y: {
-                min: 0.2,
-                max: 0.9,
+                min: 0.6,
+                max: 1.0,
                 ticks: { stepSize: 0.1 },
             },
         },
@@ -66,17 +66,18 @@ const BoxOverlapChart = () => {
         labels: Array.from({ length: 34 }, (_, i) => i),
         datasets: [
             {
-                label: 'Box Overlap Loss',
+                label: 'Validation Accuracy',
+                // Starts ~0.65, peaks at 0.90, then fluctuates
                 data: [
-                    0.87, 0.48, 0.46, 0.42, 0.37, 0.40, 0.35, 0.36, 0.34, 0.31,
-                    0.30, 0.31, 0.31, 0.30, 0.30, 0.29, 0.29, 0.30, 0.31, 0.29,
-                    0.34, 0.28, 0.32, 0.31, 0.29, 0.34, 0.29, 0.29, 0.28, 0.31,
-                    0.29, 0.29, 0.32, 0.30
+                    0.65, 0.72, 0.78, 0.85, 0.81, 0.79, 0.81, 0.84, 0.86, 0.89,
+                    0.91, 0.78, 0.76, 0.82, 0.83, 0.84, 0.78, 0.79, 0.82, 0.83,
+                    0.79, 0.85, 0.81, 0.76, 0.79, 0.83, 0.83, 0.79, 0.83, 0.82,
+                    0.75, 0.83, 0.82, 0.76, 0.85, 0.82, 0.82, 0.83, 0.78, 0.79, 0.82
                 ],
-                borderColor: '#712ee1', // The purple color from your image
-                backgroundColor: '#712ee1',
-                borderWidth: 3,
-                tension: 0.3, // Adds the slight smoothing seen in the curve
+                borderColor: '#4CAF50', // Success Green
+                backgroundColor: '#4CAF50',
+                borderWidth: 2,
+                tension: 0.3, // Smoother curve
             },
         ],
     }
@@ -88,4 +89,4 @@ const BoxOverlapChart = () => {
     )
 }
 
-export default BoxOverlapChart
+export default ValidationChart
