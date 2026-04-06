@@ -28,7 +28,7 @@ const fractureRisk = (predictions: "osteophenia" | "osteoporosis" | "Normal" | "
             TScore: -getRandomBetween(-2, -1),
             ZScore: -getRandomBetween(-2, -1),
             boneDensity: (
-                (getRandomBetween(-2, -1) + 1) * 0.1) + 1,
+                (getRandomBetween(-2, -1) + 1) * 0.1) + 0.6,
             doctorQuote: doctorQuotesOsteopenia[Math.floor(getRandomBetween(0, doctorQuotesOsteopenia.length - 1))]
         }
     } else if (predictions === "osteoporosis") {
@@ -38,7 +38,7 @@ const fractureRisk = (predictions: "osteophenia" | "osteoporosis" | "Normal" | "
             bmdQuote: "Osteoporosis Range",
             TScore: getRandomBetween(-3, -2),
             ZScore: getRandomBetween(-3, -2),
-            boneDensity: ((getRandomBetween(-2, -1) + 1) * 0.1) + 1,
+            boneDensity: ((getRandomBetween(-2, -1) + 1) * 0.1)+0.25,
             doctorQuote: doctorQuotesOsteoporosis[Math.floor(getRandomBetween(0, doctorQuotesOsteoporosis.length - 1))]
         }
 
@@ -49,7 +49,7 @@ const fractureRisk = (predictions: "osteophenia" | "osteoporosis" | "Normal" | "
             bmdQuote: "Normal Range",
             TScore: getRandomBetween(-1, 1),
             ZScore: getRandomBetween(-1, 1),
-            boneDensity: ((getRandomBetween(-2, -1) + 1) * 0.1) + 1,
+            boneDensity: ((getRandomBetween(-2, -1) + 1) * 0.2) + 1,
             doctorQuote: doctorQuotesNormal[Math.floor(getRandomBetween(0, doctorQuotesNormal.length - 1))]
         }
     }
